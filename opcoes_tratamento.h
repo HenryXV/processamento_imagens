@@ -8,13 +8,18 @@ using namespace std;
 int escolhe_tratamento() {
     string tratamento;
 
-    cout << "1. Escurecer\n" << "2. Clarear\n" << "3. Negativo\n" << "4. Espelhar\n" << endl;
+    cout << "1. Escurecer\n" << "2. Clarear\n" << "3. Negativo\n" << "4. Espelhar\n" << "5. Sobel\n" << "6. Laplace\n"
+         << "7. Cinza (Converte uma imagem colorida para tons de cinza)\n" << "8. Aleatorio" << endl;
     cin >> tratamento;
 
     vector<vector<string>> respostas_possiveis = {{"1", "escurecer"},
                                                   {"2", "clarear"},
                                                   {"3", "negativo"},
-                                                  {"4", "espelhar"}};
+                                                  {"4", "espelhar"},
+                                                  {"5", "sobel"},
+                                                  {"6", "laplace"},
+                                                  {"7", "cinza"},
+                                                  {"8", "aleatorio"}};
 
     /* usa o método std::any_of para comparar a resposta (transformada para minusculo)
     * dada pelo usuário com o vetor de possíveis respostas para cada tratamento,
@@ -25,11 +30,11 @@ int escolhe_tratamento() {
         transform(tratamento.begin(), tratamento.end(), tratamento.begin(), ::tolower);
         for(auto opcao : respostas_possiveis) {
             index++;
-            if(any_of(opcao.begin(), opcao.end(), [tratamento](string o){return o == tratamento;})) {
+            if(any_of(opcao.begin(), opcao.end(), [tratamento](const string &o){return o == tratamento;})) {
                 return index;
             } else if(index == respostas_possiveis.size()) {
                 index = 0;
-                cout << "Não existe a opcão " << tratamento << ", escolha novamente: " << endl;
+                cout << "Não existe a opção " << tratamento << ", escolha novamente: " << endl;
                 cin >> tratamento;
             }
         }
