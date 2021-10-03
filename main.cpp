@@ -20,7 +20,7 @@ const int RGB = 3;
 const int SOBEL_VER[3][3] = {{1, 2, 1}, {0, 0, 0}, {-1, -2, -1}};
 const int SOBEL_HOR[3][3] = {{1, 0, -1}, {2, 0, -2}, {1, 0, -1}};
 const int GAUSS[3][3] = {{1, 2, 1}, {2, 4, 2}, {1, 2, 1}};
-const int LAPLACE[3][3] = {{0, -1, 0}, {-1, 4, -1}, {0, -1, 0}};
+const int LAPLACE[3][3] = {{1, 1, 1}, {1, -8, 1}, {1, 1, 1}};
 
 using namespace std;
 
@@ -37,7 +37,7 @@ int main() {
 //inicialmente nao sera necessario entender nem mudar nada nesta parte
 
     //*** Abertura do arquivo ***//
-    arqentrada.open("../img/ufv.pnm",ios::in); //Abre arquivo para leitura
+    arqentrada.open("../img/pedra.pnm",ios::in); //Abre arquivo para leitura
     if (!arqentrada) {
         cout << "Nao consegui abrir arquivo\n";
         return 0;
@@ -221,7 +221,7 @@ int main() {
                                             (imagem[i][j-1][k] * GAUSS[1][0]) + (imagem[i][j][k] * GAUSS[1][1]) + (imagem[i][j+1][k] * GAUSS[1][2]) +
                                             (imagem[i+1][j-1][k] * GAUSS[2][0]) + (imagem[i+1][j][k] * GAUSS[2][1]) + (imagem[i+1][j+1][k] * GAUSS[2][2]));
 
-                        soma_gauss /= 8;
+                        soma_gauss /= 16;
 
                         valida_pixel(soma_gauss);
 

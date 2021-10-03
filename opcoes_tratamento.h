@@ -8,9 +8,9 @@ using namespace std;
 int escolhe_tratamento() {
     string tratamento;
 
+    cout << "Escolha a opção com o tratamento desejado:" << endl;
     cout << "1. Escurecer\n" << "2. Clarear\n" << "3. Negativo\n" << "4. Espelhar\n" << "5. Sobel\n" << "6. Laplace\n"
-         << "7. Cinza (Converte uma imagem colorida para tons de cinza)\n"
-         << "8. Preto e branco (Converte uma imagem colorida para preto e branco)" << endl;
+         << "7. Cinza\n" << "8. Preto e branco" << endl;
     cin >> tratamento;
 
     vector<vector<string>> respostas_possiveis = {{"1", "escurecer"},
