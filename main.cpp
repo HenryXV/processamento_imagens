@@ -13,8 +13,8 @@
 #include "opcoes_tratamento.h"
 #include "tratamentos.h"
 
-const int MAXALTURA  = 1000;				//tamanho maximo aceito (pode ser alterado)
-const int MAXLARGURA = 1000;
+const int MAXALTURA  = 800;				//tamanho maximo aceito (pode ser alterado)
+const int MAXLARGURA = 1200;
 const int RGB = 3;
 
 const int SOBEL_VER[3][3] = {{1, 2, 1}, {0, 0, 0}, {-1, -2, -1}};
@@ -37,7 +37,7 @@ int main() {
 //inicialmente nao sera necessario entender nem mudar nada nesta parte
 
     //*** Abertura do arquivo ***//
-    arqentrada.open("paisagem.pnm",ios::in); //Abre arquivo para leitura
+    arqentrada.open("../img/ufv.pnm",ios::in); //Abre arquivo para leitura
     if (!arqentrada) {
         cout << "Nao consegui abrir arquivo\n";
         return 0;
@@ -131,6 +131,7 @@ int main() {
 
     switch(tipo_tratamento) {
         case 1: // escurece a imagem
+            cout << "Escurecendo imagem..." << endl;
             for(i = 0; i < altura; i++)
                 for(j = 0; j < largura; j++) {
                     for(k = 0; k < RGB; k++) {
@@ -142,6 +143,7 @@ int main() {
                 }
             break;
         case 2: // clareia a imagem
+            cout << "Clareando imagem..." << endl;
             for(i = 0; i < altura; i++)
                 for(j = 0; j < largura; j++) {
                     for(k = 0; k < RGB; k++) {
@@ -153,6 +155,7 @@ int main() {
                 }
             break;
         case 3: // imagem negativa
+            cout << "Modificando a imagem para cores negativas..." << endl;
             for(i = 0; i < altura; i++) {
                 for(j = 0; j < largura; j++) {
                     for(k = 0; k < RGB; k++) {
@@ -164,6 +167,7 @@ int main() {
             }
             break;
         case 4: // imagem espelhada
+            cout << "Espelhando imagem..." << endl;
             for(j = 0; j < largura/2; j++) {  // itera sobre cada coluna até a metade, se não elas retrocam de lugar
                 for(i = 0; i < altura; i++) {
                     for(k = 0; k < RGB; k++) {
@@ -176,6 +180,7 @@ int main() {
             }
             break;
         case 5: // filtro de sobel
+            cout << "Aplicando filtro de Sobel..." << endl;
             /*
              * Inicializa as matrizes do filtro de sobel, depois para cada pixel da imagem e
              * faz a soma da multiplição dos pixels ao redor com a matriz de sobel para horizontal e vertical,
@@ -204,6 +209,7 @@ int main() {
             }
             break;
         case 6:
+            cout << "Aplicando filtro de Laplace..." << endl;
             /*
              * Aplica o filtro de Laplace em cima da desfocagem gaussiana
              */
@@ -238,6 +244,7 @@ int main() {
             }
             break;
         case 7: // conversão para cinza
+            cout << "Convertendo imagem para cinza..." << endl;
             for(i = 0; i < altura; i++) {
                 for(j = 0; j < largura; j++) {
 
@@ -250,6 +257,23 @@ int main() {
                 }
             }
             break;
+        case 8:
+            cout << "Convertendo para preto e branco..." << endl;
+            for(i = 0; i < altura; i++) {
+                for(j = 0; j < largura; j++) {
+                    valor = (int) (imagem[i][j][0] + imagem[i][j][1] + imagem[i][j][2]) / 3;
+
+                    if(valor > 128) {
+                        imagem[i][j][0] = (unsigned char) 255;
+                        imagem[i][j][1] = (unsigned char) 255;
+                        imagem[i][j][2] = (unsigned char) 255;
+                    } else {
+                        imagem[i][j][0] = (unsigned char) 0;
+                        imagem[i][j][1] = (unsigned char) 0;
+                        imagem[i][j][2] = (unsigned char) 0;
+                    }
+                }
+            }
     }
 
 //*** FIM DO TRATAMENTO DA IMAGEM ***//
@@ -260,7 +284,7 @@ int main() {
 //inicialmente nao sera necessario entender nem mudar nada nesta parte
 
     //*** Grava a nova imagem ***//
-    arqsaida.open("novaimagem.pnm",ios::out);	//Abre arquivo para escrita
+    arqsaida.open("../img/novaimagem.pnm",ios::out);	//Abre arquivo para escrita
     if (!arqsaida) {
         cout << "Nao consegui criar novaimagem.pnm\n";
         return 0;
@@ -277,6 +301,8 @@ int main() {
 
     arqsaida.close();		//fecha o arquivo
     //***************************//
+
+    cout << "A imagem foi modificada com sucesso!" << endl;
 
 //*** FIM DA GRAVACAO DA IMAGEM ***//
 

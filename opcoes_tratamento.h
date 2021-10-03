@@ -9,7 +9,8 @@ int escolhe_tratamento() {
     string tratamento;
 
     cout << "1. Escurecer\n" << "2. Clarear\n" << "3. Negativo\n" << "4. Espelhar\n" << "5. Sobel\n" << "6. Laplace\n"
-         << "7. Cinza (Converte uma imagem colorida para tons de cinza)\n" << "8. Aleatorio" << endl;
+         << "7. Cinza (Converte uma imagem colorida para tons de cinza)\n"
+         << "8. Preto e branco (Converte uma imagem colorida para preto e branco)" << endl;
     cin >> tratamento;
 
     vector<vector<string>> respostas_possiveis = {{"1", "escurecer"},
@@ -19,7 +20,7 @@ int escolhe_tratamento() {
                                                   {"5", "sobel"},
                                                   {"6", "laplace"},
                                                   {"7", "cinza"},
-                                                  {"8", "aleatorio"}};
+                                                  {"8", "preto", "branco", "preto e branco"}};
 
     /* usa o método std::any_of para comparar a resposta (transformada para minusculo)
     * dada pelo usuário com o vetor de possíveis respostas para cada tratamento,
